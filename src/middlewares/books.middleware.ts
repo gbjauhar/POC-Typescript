@@ -1,6 +1,8 @@
+import { NextFunction, Request, Response } from "express"
+import { array } from "joi"
 import bookModel from "../schemas/books.schemas.js"
 
-export default function postBookValidation(req, res, next){
+export default function postBookValidation(req: Request, res: Response, next: NextFunction){
     const { error } = bookModel.validate(req.body, { abortEarly: false })
     if(error){
         const err = error.details.map(detail => detail.message)
