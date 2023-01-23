@@ -2,7 +2,7 @@ import { Book } from './../protocols/book.js';
 import { Request, Response } from "express"
 import booksRepository from "../repositories/books.repository.js"
 
-export async function createBook(req: Request, res: Response) {
+export async function createBook(req: Request, res: Response): Promise<void> {
     const { title, author, genre, status } = req.body as Book
     try {
         await booksRepository.create(title, author, genre, status)
@@ -13,7 +13,7 @@ export async function createBook(req: Request, res: Response) {
     }
 }
 
-export async function getBooks(req: Request, res: Response) {
+export async function getBooks(req: Request, res: Response): Promise<void> {
     try {
         const { rows } = await booksRepository.retrieve()
         res.send(rows)
@@ -23,7 +23,7 @@ export async function getBooks(req: Request, res: Response) {
     }
 }
 
-export async function getByStatus(req: Request, res: Response) {
+export async function getByStatus(req: Request, res: Response): Promise<void> {
     const { status } = req.query
     try {
         const { rows } = await booksRepository.retrieveByStatus(status.toString())
@@ -34,7 +34,7 @@ export async function getByStatus(req: Request, res: Response) {
     }
 }
 
-export async function deleteBook(req: Request, res: Response) {
+export async function deleteBook(req: Request, res: Response): Promise<void> {
     const { id } = req.params
     try {
         await booksRepository.deleteById(Number(id))
@@ -45,7 +45,7 @@ export async function deleteBook(req: Request, res: Response) {
     }
 }
 
-export async function updateByStatus(req: Request, res: Response) {
+export async function updateByStatus(req: Request, res: Response): Promise<void> {
     const { id, status } = req.params
     try {
         const teste = await booksRepository.update(Number(id), status)
